@@ -5,11 +5,13 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+//TODO: Add deleteSong method
+
 public class CSVUtils{
 
 	private CSVUtils(){}
 	
-	//Need to change how we catch this exception
+	//TODO: change how I handle this exception
 	public static void writeSongToFile(String csvString){
 		File f = new File("songs.csv");
 
@@ -23,6 +25,7 @@ public class CSVUtils{
 		}
 	}
 
+	//Returns an arrayList of Song objects
 	public static List<Song> getSongs() throws Exception{
 		List<Song> toReturn = new ArrayList<>();
 		List<String> line = new ArrayList<>();
@@ -73,11 +76,7 @@ public class CSVUtils{
 				currentString += ch;
 			}
 		}
-
-		for(String s : toReturn){
-			System.out.println(s);
-		}
-
+		
 		return toReturn;
 	}
 }
