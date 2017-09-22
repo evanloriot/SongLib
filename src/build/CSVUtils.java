@@ -13,13 +13,13 @@ public class CSVUtils{
 	
 	//TODO: change how I handle this exception
 	public static void writeSongToFile(String csvString){
-		File f = new File("songs.csv");
+		File file = new File("songs.csv");
 
 		try {
-			FileWriter fw = new FileWriter(f, true);
-			BufferedWriter bw = new BufferedWriter(fw);
-			bw.write(csvString);
-			bw.close();
+			FileWriter fileWriter = new FileWriter(file, true);
+			BufferedWriter bufferWriter = new BufferedWriter(fileWriter);
+			bufferWriter.write(csvString);
+			bufferWriter.close();
 		} catch(IOException e) {
 			System.out.println("Error writing the file");
 		}
@@ -33,15 +33,15 @@ public class CSVUtils{
 		filePath += "\\songs.csv";
 		Song currentSong;
 
-		Scanner s = new Scanner(new File(filePath));
+		Scanner scanner = new Scanner(new File(filePath));
 
-		while(s.hasNext()){
-			line = parseCSVLine(s.nextLine());
+		while(scanner.hasNext()){
+			line = parseCSVLine(scanner.nextLine());
 			currentSong = new Song(line.get(0), line.get(1), line.get(2), line.get(3));
 			toReturn.add(currentSong);
 		}
 		
-		s.close();
+		scanner.close();
 
 		return toReturn;
 	}
@@ -62,18 +62,18 @@ public class CSVUtils{
 		boolean quoteStarted = false;
 		boolean quoteEnded = false;
 
-		for(char ch : csvStringArray){
-			if(ch == '"' && !quoteStarted){
+		for(char character : csvStringArray){
+			if(character == '"' && !quoteStarted){
 				quoteStarted = true;
-			} else if(ch == '"' && quoteStarted) {
+			} else if(character == '"' && quoteStarted) {
 				quoteEnded = true;
-			} else if(ch == ',' && quoteEnded || ch == '\n' && quoteEnded){
+			} else if(character == ',' && quoteEnded || character == '\n' && quoteEnded){
 				toReturn.add(currentString);
 				currentString = "";
 				quoteStarted = false;
 				quoteEnded = false;
 			}else {
-				currentString += ch;
+				currentString += character;
 			}
 		}
 		
