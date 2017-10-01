@@ -3,7 +3,6 @@ package controllers;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import Models.Song;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -16,6 +15,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import models.Song;
 
 public class LibraryController {
 	@FXML

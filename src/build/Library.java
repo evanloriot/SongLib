@@ -2,13 +2,13 @@ package build;
 	
 import java.util.ArrayList;
 
-import Models.Song;
 import controllers.LibraryController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import models.Song;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 
@@ -21,7 +21,6 @@ public class Library extends Application {
 			ArrayList<Song> songs = new ArrayList<Song>();
 			
 			//TODO: load array list from file
-			songs.add(new Song("International Love", "Pitbull", null, null));
 			
 			//populate observable list (does it even need to be observable?)
 			ObservableList<Song> obsList = FXCollections.observableArrayList(songs);

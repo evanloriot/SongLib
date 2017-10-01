@@ -1,12 +1,12 @@
 package controllers;
 
 
-import Models.Song;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import models.Song;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -55,7 +55,7 @@ public class AddSongController {
 			@Override
 			public void handle(MouseEvent click) {
 				try {
-					if(song.getText() == null || song.getText().length() == 0) {
+					if(song.getText() == null || song.getText().length() == 0 || artist.getText() == null || artist.getText().length() == 0) {
 						songTitle.setFill(Color.RED);
 						artistTitle.setFill(Color.RED);
 						return;

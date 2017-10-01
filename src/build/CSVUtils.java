@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import models.Song;
+
 //TODO: Add deleteSong method
 
 public class CSVUtils{

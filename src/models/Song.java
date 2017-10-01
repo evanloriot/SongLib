@@ -1,4 +1,4 @@
-package Models;
+package models;
 
 public class Song {
 	private String song;
@@ -40,13 +40,13 @@ public class Song {
 		output += song;
 		output += ", " + artist;
 		output += " (";
-		if(album == null) {
+		if(album == null || album.length() == 0) {
 			output += "unknown album, ";
 		}
 		else {
 			output += album + ", ";
 		}
-		if(year == null) {
+		if(year == null || year.length() == 0) {
 			output += "unknown year)";
 		}
 		else {
