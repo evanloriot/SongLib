@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane fx:controller="controllers.AddSongController" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <columnConstraints>
       <ColumnConstraints />
       <ColumnConstraints hgrow="ALWAYS" />
@@ -31,17 +31,17 @@
             <Insets bottom="5.0" left="10.0" top="10.0" />
          </GridPane.margin>
       </Text>
-      <TextField maxWidth="400.0" prefHeight="25.0" prefWidth="431.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <TextField fx:id="song" maxWidth="400.0" prefHeight="25.0" prefWidth="431.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </GridPane.margin>
       </TextField>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Song Title:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+      <Text fx:id="songTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="* Song Title:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets left="5.0" />
          </GridPane.margin>
       </Text>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Artist:" textAlignment="RIGHT" wrappingWidth="54.904296875" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+      <Text fx:id="artistTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="* Artist:" textAlignment="RIGHT" wrappingWidth="54.904296875" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets left="5.0" />
          </GridPane.margin>
@@ -56,30 +56,31 @@
             <Insets left="5.0" />
          </GridPane.margin>
       </Text>
-      <TextField maxWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <TextField fx:id="artist" maxWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </GridPane.margin>
       </TextField>
-      <TextField maxWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+      <TextField fx:id="album" maxWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </GridPane.margin>
       </TextField>
-      <TextField maxWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+      <TextField fx:id="year" maxWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </GridPane.margin>
       </TextField>
-      <Button maxWidth="100.0" mnemonicParsing="false" text="Cancel" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
+      <Button fx:id="cancel" maxWidth="100.0" mnemonicParsing="false" text="Cancel" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
          <GridPane.margin>
             <Insets bottom="60.0" right="200.0" />
          </GridPane.margin>
       </Button>
-      <Button maxWidth="100.0" mnemonicParsing="false" text="Add" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
+      <Button id="add" fx:id="add" maxWidth="100.0" mnemonicParsing="false" text="Add" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
          <GridPane.margin>
             <Insets bottom="60.0" right="50.0" />
          </GridPane.margin>
       </Button>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="(*) indicates a required field" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.valignment="TOP" />
    </children>
 </GridPane>
