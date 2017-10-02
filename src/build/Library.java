@@ -18,12 +18,11 @@ public class Library extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			//Create an ArrayList to contain songs
-			ArrayList<Song> songs = new ArrayList<Song>();
-			
-			//TODO: load array list from file
+			ArrayList<Song> songs = CSVUtils.getSongs();
 			
 			//populate observable list (does it even need to be observable?)
 			ObservableList<Song> obsList = FXCollections.observableArrayList(songs);
+			obsList = SongUtils.sort(obsList);
 			
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/views/Library.fxml"));
