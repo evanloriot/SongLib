@@ -79,14 +79,19 @@ public class EditSongController {
 					Song s = new Song(song.getText(), artist.getText(), album.getText(), year.getText());
 					library.start(mainStage, obsList);
 					//TODO: Add an alert to tell the user that their changes couldn't be saved if its a duplicate
-					if(!SongUtils.isDuplicate(obsList, s, index)){
+					if(SongUtils.isDuplicate(obsList, s, index)){
+						library.showEditError(mainStage);
+						Scene scene = new Scene(root);
+						mainStage.setScene(scene);
+					} else {
 						CSVUtils.deleteSongFromFile(library.getSong(index));
 						library.changeSong(s, index);
 						CSVUtils.writeSongToFile(s);
 						library.sortList();
+						Scene scene = new Scene(root);
+						mainStage.setScene(scene);
 					}
-					Scene scene = new Scene(root);
-					mainStage.setScene(scene);
+
 				}
 				catch(Exception e) {
 					System.out.println("An exception occurred.");

@@ -22,7 +22,7 @@ public class Library extends Application {
 			
 			//populate observable list (does it even need to be observable?)
 			ObservableList<Song> obsList = FXCollections.observableArrayList(songs);
-			obsList = SongUtils.Sort(obsList);
+			obsList = SongUtils.sort(obsList);
 			
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/views/Library.fxml"));

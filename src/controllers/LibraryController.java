@@ -11,9 +11,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import models.Song;
@@ -99,6 +101,33 @@ public class LibraryController {
 	}
 	
 	public void sortList(){
-		this.obsList = SongUtils.Sort(obsList);
+		this.obsList = SongUtils.sort(obsList);
 	}
+	
+	
+    protected void showAddError(Stage mainStage) {                
+    	Alert alert = 
+			   new Alert(AlertType.INFORMATION);
+	   alert.initOwner(mainStage);
+	   alert.setTitle("Library");
+	   alert.setHeaderText("Canceling Last User Operation");
+
+	   String content = "Can't add a song with the same name and artist as another song already in the library"; 
+
+	   alert.setContentText(content);
+	   alert.showAndWait();
+   }
+    
+   protected void showEditError(Stage mainStage) {                
+    	Alert alert = 
+			   new Alert(AlertType.INFORMATION);
+	   alert.initOwner(mainStage);
+	   alert.setTitle("Library");
+	   alert.setHeaderText("Canceling Last User Operation");
+
+	   String content = "Can't edit a song to have the same name and artist as another song already in the library"; 
+
+	   alert.setContentText(content);
+	   alert.showAndWait();
+   }
 }

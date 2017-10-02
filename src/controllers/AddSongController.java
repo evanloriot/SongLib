@@ -70,14 +70,17 @@ public class AddSongController {
 					Song s = new Song(song.getText(), artist.getText(), album.getText(), year.getText());
 					library.start(mainStage, obsList);
 					//TODO: Add an alert to tell the user that their song couldn't be added, it is a duplicate
-					if(!SongUtils.isDuplicate(obsList, s)){
+					if(SongUtils.isDuplicate(obsList, s)){
+						library.showAddError(mainStage);
+						Scene scene = new Scene(root);
+						mainStage.setScene(scene);
+					} else {
 						library.addSong(s);
 						library.sortList();
 						CSVUtils.writeSongToFile(s);
+						Scene scene = new Scene(root);
+						mainStage.setScene(scene);
 					}
-					
-					Scene scene = new Scene(root);
-					mainStage.setScene(scene);
 				}
 				catch(Exception e) {
 					System.out.println("An exception occurred.");

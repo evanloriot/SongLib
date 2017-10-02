@@ -5,7 +5,7 @@ import models.Song;
 
 public class SongUtils {
 	private SongUtils(){}
-	public static ObservableList<Song> Sort(ObservableList<Song> obsList){
+	public static ObservableList<Song> sort(ObservableList<Song> obsList){
 		Song temp;
 		int lowest;
 		
