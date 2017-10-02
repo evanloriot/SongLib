@@ -3,6 +3,7 @@ package controllers;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import build.SongUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -89,7 +90,15 @@ public class LibraryController {
 		s.setYear(song.getYear());
 	}
 	
+	public Song getSong(int index){
+		return obsList.get(index);
+	}
+	
 	public void deleteSong(int index) {
 		obsList.remove(index);
+	}
+	
+	public void sortList(){
+		this.obsList = SongUtils.Sort(obsList);
 	}
 }

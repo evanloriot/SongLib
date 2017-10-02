@@ -1,6 +1,8 @@
 package controllers;
 
 
+import build.CSVUtils;
+import build.SongUtils;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -67,7 +69,12 @@ public class AddSongController {
 					LibraryController library = loader.getController();
 					Song s = new Song(song.getText(), artist.getText(), album.getText(), year.getText());
 					library.start(mainStage, obsList);
-					library.addSong(s);
+					//TODO: Add an alert to tell the user that their song couldn't be added, it is a duplicate
+					if(!SongUtils.isDuplicate(obsList, s)){
+						library.addSong(s);
+						library.sortList();
+						CSVUtils.writeSongToFile(s);
+					}
 					
 					Scene scene = new Scene(root);
 					mainStage.setScene(scene);

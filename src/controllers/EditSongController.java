@@ -1,6 +1,8 @@
 package controllers;
 
 
+import build.CSVUtils;
+import build.SongUtils;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -76,8 +78,13 @@ public class EditSongController {
 					LibraryController library = loader.getController();
 					Song s = new Song(song.getText(), artist.getText(), album.getText(), year.getText());
 					library.start(mainStage, obsList);
-					library.changeSong(s, index);
-					
+					//TODO: Add an alert to tell the user that their changes couldn't be saved if its a duplicate
+					if(!SongUtils.isDuplicate(obsList, s, index)){
+						CSVUtils.deleteSongFromFile(library.getSong(index));
+						library.changeSong(s, index);
+						CSVUtils.writeSongToFile(s);
+						library.sortList();
+					}
 					Scene scene = new Scene(root);
 					mainStage.setScene(scene);
 				}
@@ -98,6 +105,7 @@ public class EditSongController {
 					
 					LibraryController library = loader.getController();
 					library.start(mainStage, obsList);
+					CSVUtils.deleteSongFromFile(library.obsList.get(index));
 					library.deleteSong(index);
 					
 					Scene scene = new Scene(root);

@@ -14,13 +14,13 @@ public class CSVUtils{
 	private CSVUtils(){}
 	
 	//TODO: change how I handle this exception
-	public static void writeSongToFile(String csvString){
+	public static void writeSongToFile(Song s){
 		File file = new File("songs.csv");
 
 		try {
 			FileWriter fileWriter = new FileWriter(file, true);
 			BufferedWriter bufferWriter = new BufferedWriter(fileWriter);
-			bufferWriter.write(csvString);
+			bufferWriter.write(CSVUtils.getCSVString(s));
 			bufferWriter.close();
 		} catch(IOException e) {
 			System.out.println("Error writing the file");
@@ -28,22 +28,26 @@ public class CSVUtils{
 	}
 
 	//Returns an arrayList of Song objects
-	public static List<Song> getSongs() throws Exception{
-		List<Song> toReturn = new ArrayList<>();
+	public static ArrayList<Song> getSongs() throws Exception{
+		ArrayList<Song> toReturn = new ArrayList<>();
 		List<String> line = new ArrayList<>();
-		String filePath = new File("").getAbsolutePath();
-		filePath += "\\songs.csv";
-		Song currentSong;
-
-		Scanner scanner = new Scanner(new File(filePath));
-
-		while(scanner.hasNext()){
-			line = parseCSVLine(scanner.nextLine());
-			currentSong = new Song(line.get(0), line.get(1), line.get(2), line.get(3));
-			toReturn.add(currentSong);
+		try {
+			String filePath = new File("").getAbsolutePath();
+			filePath += "\\songs.csv";
+			Song currentSong;
+	
+			Scanner scanner = new Scanner(new File(filePath));
+	
+			while(scanner.hasNext()){
+				line = parseCSVLine(scanner.nextLine());
+				currentSong = new Song(line.get(0), line.get(1), line.get(2), line.get(3));
+				toReturn.add(currentSong);
+			}
+			
+			scanner.close();
+		} catch (FileNotFoundException e){
+			return toReturn;
 		}
-		
-		scanner.close();
 
 		return toReturn;
 	}
@@ -80,5 +84,56 @@ public class CSVUtils{
 		}
 		
 		return toReturn;
+	}
+	
+	public static void deleteSongFromFile(Song s){
+		String filePath = new File("").getAbsolutePath();
+		filePath += "\\songs.csv";
+		
+		try{
+		File inputFile = new File(filePath);
+		File tempFile = new File("temp.csv");
+		Song tempSong;
+		List<String> line;
+		String currentLine;
+
+		BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+		BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+
+		while((currentLine = reader.readLine()) != null) {
+			line = CSVUtils.parseCSVLine(currentLine);
+			tempSong = new Song(line.get(0),line.get(1),line.get(2),line.get(3));
+			//This is ugly, but I just want to make sure that they're equal regardless of whitespace or case
+			if(trimLower(s.getSong()).equals(trimLower(tempSong.getSong())) && 
+					trimLower(s.getArtist()).equals(trimLower(tempSong.getArtist()))){
+				continue;
+			}else{
+				writer.write(currentLine + System.getProperty("line.separator"));
+			}
+		}
+		writer.close(); 
+		reader.close();
+		try{
+			inputFile.delete();
+		} catch(Exception e){
+			System.out.println("Couldn't delete file.");
+		}
+		tempFile.renameTo(inputFile);
+		} catch (Exception e){
+			return;
+		}
+	}
+	
+	public static String trimLower(String in){
+		return in.toLowerCase().trim();
+	}
+	
+	public static String getCSVString(Song s){
+		return 
+			"\"" + s.getSong() + "\"" + "," +
+			"\"" + s.getArtist() + "\"" + "," +
+			"\"" + s.getAlbum() + "\"" + "," +
+			"\"" + s.getYear() + "\"" + ",\n";
 	}
 }
