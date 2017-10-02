@@ -25,6 +25,7 @@ public class SongUtils {
 		return obsList;
 	}
 	
+	//Used for adding new songs, check to see if there is already one with the same name and artist
 	public static boolean isDuplicate(ObservableList<Song> obsList, Song s){
 		for(int i = 0; i < obsList.size(); i++){
 			if(trimLower(s.getSong()).equals(trimLower(obsList.get(i).getSong())) && 
@@ -35,6 +36,7 @@ public class SongUtils {
 		return false;
 	}
 	
+	//Same as above, but used for changing a song that's already on the list
 	public static boolean isDuplicate(ObservableList<Song> obsList, Song s, int index){
 		for(int i = 0; i < obsList.size(); i++){
 			if(i == index){
