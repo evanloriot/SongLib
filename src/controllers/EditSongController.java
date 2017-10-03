@@ -51,6 +51,8 @@ public class EditSongController {
 					LibraryController library = loader.getController();
 					library.start(mainStage, obsList);
 					
+					library.selectSong(songObj);
+					
 					Scene scene = new Scene(root);
 					mainStage.setScene(scene);
 				}
@@ -81,13 +83,14 @@ public class EditSongController {
 					//TODO: Add an alert to tell the user that their changes couldn't be saved if its a duplicate
 					if(SongUtils.isDuplicate(obsList, s, index)){
 						library.showEditError(mainStage);
+						library.selectSong(songObj);
 						Scene scene = new Scene(root);
 						mainStage.setScene(scene);
 					} else {
 						CSVUtils.deleteSongFromFile(library.getSong(index));
 						library.changeSong(s, index);
 						CSVUtils.writeSongToFile(s);
-						library.sortList();
+						library.sortList(s);
 						Scene scene = new Scene(root);
 						mainStage.setScene(scene);
 					}

@@ -33,9 +33,10 @@ public class LibraryController {
 		this.obsList = obsList;
 		
 		//set list in ui
-		library.setItems(obsList);  
-		library.getSelectionModel().select(0);
-		populateDescription(obsList.get(0));
+		library.setItems(obsList);
+		if(obsList.size() != 0) {
+			populateDescription(obsList.get(0));
+		}
 		
 		//double click event to edit song
 		library.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -74,7 +75,7 @@ public class LibraryController {
 					Parent root = (Parent) loader.load();
 					
 					AddSongController addSong = loader.getController();
-					addSong.start(mainStage, obsList);
+					addSong.start(mainStage, obsList, library.getSelectionModel().getSelectedItem());
 					
 					Scene scene = new Scene(root);
 					mainStage.setScene(scene);
@@ -93,6 +94,19 @@ public class LibraryController {
 	
 	public void addSong(Song song) {
 		obsList.add(song);
+		selectSong(song);
+	}
+	
+	public void selectSong(Song song) {
+		int index = 0;
+		for(int i = 0; i < obsList.size(); i++) {
+			if(obsList.get(i).toString().equals(song.toString())) {
+				index = i;
+				break;
+			}
+		}
+		library.getSelectionModel().select(index);
+		populateDescription(song);
 	}
 	
 	public void changeSong(Song song, int index) {
@@ -101,6 +115,7 @@ public class LibraryController {
 		s.setArtist(song.getArtist());
 		s.setAlbum(song.getAlbum());
 		s.setYear(song.getYear());
+		selectSong(song);
 	}
 	
 	public Song getSong(int index){
@@ -109,10 +124,20 @@ public class LibraryController {
 	
 	public void deleteSong(int index) {
 		obsList.remove(index);
+		if(index >= obsList.size()) {
+			library.getSelectionModel().select(index - 1);
+		}
+		else {
+			library.getSelectionModel().select(index);
+		}
+		if(obsList.size() == 0) {
+			description.setText("");
+		}
 	}
 	
-	public void sortList(){
+	public void sortList(Song song){
 		this.obsList = SongUtils.sort(obsList);
+		selectSong(song);
 	}
 	
 	

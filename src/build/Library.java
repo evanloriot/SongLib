@@ -32,6 +32,10 @@ public class Library extends Application {
 			LibraryController libraryController = loader.getController();
 			libraryController.start(primaryStage, obsList);
 			
+			if(songs.size() != 0) {
+				libraryController.selectSong(obsList.get(0));
+			}
+			
 			Scene scene = new Scene(root, 800, 600);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			

@@ -30,7 +30,7 @@ public class AddSongController {
 	public Button cancel;
 	public Button add;
 	
-	public void start(Stage mainStage, ObservableList<Song> obsList) {
+	public void start(Stage mainStage, ObservableList<Song> obsList, Song songSelected) {
 		//set cancel event
 		cancel.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
@@ -41,6 +41,8 @@ public class AddSongController {
 					
 					LibraryController library = loader.getController();
 					library.start(mainStage, obsList);
+					
+					library.selectSong(songSelected);
 					
 					Scene scene = new Scene(root);
 					mainStage.setScene(scene);
@@ -69,14 +71,15 @@ public class AddSongController {
 					LibraryController library = loader.getController();
 					Song s = new Song(song.getText(), artist.getText(), album.getText(), year.getText());
 					library.start(mainStage, obsList);
-					//TODO: Add an alert to tell the user that their song couldn't be added, it is a duplicate
+
 					if(SongUtils.isDuplicate(obsList, s)){
 						library.showAddError(mainStage);
+						library.selectSong(songSelected);
 						Scene scene = new Scene(root);
 						mainStage.setScene(scene);
 					} else {
 						library.addSong(s);
-						library.sortList();
+						library.sortList(s);
 						CSVUtils.writeSongToFile(s);
 						Scene scene = new Scene(root);
 						mainStage.setScene(scene);
