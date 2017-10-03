@@ -13,7 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 
 
-public class Library extends Application {
+public class SongLib extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
