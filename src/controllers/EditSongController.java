@@ -11,7 +11,10 @@ import javafx.stage.Stage;
 import models.Song;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -108,16 +111,24 @@ public class EditSongController {
 			@Override
 			public void handle(MouseEvent click) {
 				try {
-					FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Library.fxml"));
-					Parent root = (Parent) loader.load();
-					
-					LibraryController library = loader.getController();
-					library.start(mainStage, obsList);
-					CSVUtils.deleteSongFromFile(library.obsList.get(index));
-					library.deleteSong(index);
-					
-					Scene scene = new Scene(root);
-					mainStage.setScene(scene);
+					Alert alert = new Alert(AlertType.CONFIRMATION, "Delete song?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+					alert.showAndWait();
+
+					if (alert.getResult() == ButtonType.YES) {
+						FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Library.fxml"));
+						Parent root = (Parent) loader.load();
+						
+						LibraryController library = loader.getController();
+						library.start(mainStage, obsList);
+						CSVUtils.deleteSongFromFile(library.obsList.get(index));
+						library.deleteSong(index);
+						
+						Scene scene = new Scene(root);
+						mainStage.setScene(scene);
+					}
+					else {
+						return;
+					}
 				}
 				catch(Exception e) {
 					System.out.println("An exception occurred.");
