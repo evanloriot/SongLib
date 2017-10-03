@@ -39,6 +39,12 @@ public class Song {
 		String output = "";
 		output += song;
 		output += ", " + artist;
+		return output;
+	}
+	public String fullToString() {
+		String output = "";
+		output += song;
+		output += ", " + artist;
 		output += " (";
 		if(album == null || album.length() == 0) {
 			output += "unknown album, ";

@@ -17,6 +17,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import models.Song;
 
@@ -24,6 +25,7 @@ public class LibraryController {
 	@FXML
 	public ListView<Song> library;
 	public Button addSong;
+	public Text description;
 	
 	public ObservableList<Song> obsList;
 	
@@ -32,6 +34,8 @@ public class LibraryController {
 		
 		//set list in ui
 		library.setItems(obsList);  
+		library.getSelectionModel().select(0);
+		populateDescription(obsList.get(0));
 		
 		//double click event to edit song
 		library.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -56,6 +60,9 @@ public class LibraryController {
 						e.printStackTrace();
 					}
 				}
+				else if(click.getClickCount() == 1) {
+					populateDescription(song);
+				}
 			}
 		});
 		
@@ -78,6 +85,10 @@ public class LibraryController {
 				}
 			}
 		});
+	}
+	
+	public void populateDescription(Song song) {
+		description.setText(song.fullToString());
 	}
 	
 	public void addSong(Song song) {

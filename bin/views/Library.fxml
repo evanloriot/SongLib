@@ -16,7 +16,8 @@
    </columnConstraints>
    <rowConstraints>
       <RowConstraints />
-      <RowConstraints />
+      <RowConstraints maxHeight="544.0" minHeight="531.0" prefHeight="531.0" />
+      <RowConstraints maxHeight="34.0" minHeight="21.0" prefHeight="34.0" />
    </rowConstraints>
    <children>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Library" textAlignment="CENTER" GridPane.halignment="LEFT">
@@ -27,11 +28,12 @@
             <Insets left="10.0" top="10.0" />
          </GridPane.margin>
       </Text>
-      <ListView fx:id="library" prefHeight="600.0" prefWidth="800.0" GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" />
+      <ListView fx:id="library" prefHeight="600.0" prefWidth="800.0" GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
       <Button fx:id="addSong" contentDisplay="RIGHT" mnemonicParsing="false" text="+" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
          <GridPane.margin>
             <Insets bottom="5.0" right="5.0" top="5.0" />
          </GridPane.margin>
       </Button>
+      <Text fx:id="description" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
    </children>
 </GridPane>
