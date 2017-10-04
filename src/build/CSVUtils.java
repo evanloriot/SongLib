@@ -12,9 +12,10 @@ public class CSVUtils{
 
 	private CSVUtils(){}
 	
-	//TODO: change how I handle this exception
 	public static void writeSongToFile(Song s){
-		File file = new File("songs.csv");
+		String filePath = new File("").getAbsolutePath();
+		filePath += "\\src\\build\\songs.csv";
+		File file = new File(filePath);
 
 		try {
 			FileWriter fileWriter = new FileWriter(file, true);
@@ -26,13 +27,13 @@ public class CSVUtils{
 		}
 	}
 
-	//Returns an arrayList of Song objects
+	//Returns an arrayList of Song objects pulled from songs.csv
 	public static ArrayList<Song> getSongs() throws Exception{
 		ArrayList<Song> toReturn = new ArrayList<>();
 		List<String> line = new ArrayList<>();
 		try {
 			String filePath = new File("").getAbsolutePath();
-			filePath += "\\songs.csv";
+			filePath += "\\src\\build\\songs.csv";
 			Song currentSong;
 	
 			Scanner scanner = new Scanner(new File(filePath));
@@ -51,14 +52,12 @@ public class CSVUtils{
 		return toReturn;
 	}
 
-	//Currently doesn't handle strings with double quotes in them
-	//More of a rough out line, I'll refactor a bit once we get
-	//things running
+	//Can't handle stings with ", in the middle of them.
+	//It won't break the program, but it will introduce errors in song storage
 	public static List<String> parseCSVLine(String csvString){
 		List<String> toReturn = new ArrayList<>();
 
 		if(csvString == null || csvString.length() == 0){
-			//I'll change this at some point
 			return null;
 		}
 
@@ -87,38 +86,42 @@ public class CSVUtils{
 	
 	public static void deleteSongFromFile(Song s){
 		String filePath = new File("").getAbsolutePath();
-		filePath += "\\songs.csv";
-		
+		String finalFilePath = filePath + "\\src\\build\\songs.csv";
+		String tempFilePath = filePath + "\\src\\build\\temp.csv";
 		try{
-		File inputFile = new File(filePath);
-		File tempFile = new File("temp.csv");
-		Song tempSong;
-		List<String> line;
-		String currentLine;
-
-		BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-		BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-
-
-		while((currentLine = reader.readLine()) != null) {
-			line = CSVUtils.parseCSVLine(currentLine);
-			tempSong = new Song(line.get(0),line.get(1),line.get(2),line.get(3));
-			//This is ugly, but I just want to make sure that they're equal regardless of whitespace or case
-			if(trimLower(s.getSong()).equals(trimLower(tempSong.getSong())) && 
-					trimLower(s.getArtist()).equals(trimLower(tempSong.getArtist()))){
-				continue;
-			}else{
-				writer.write(currentLine + System.getProperty("line.separator"));
+			File inputFile = new File(finalFilePath);
+			File tempFile = new File(tempFilePath);
+			Song tempSong;
+			List<String> line;
+			String currentLine;
+	
+			BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+	
+	
+			while((currentLine = reader.readLine()) != null) {
+				line = CSVUtils.parseCSVLine(currentLine);
+				if(line == null){
+					continue;
+				}
+				tempSong = new Song(line.get(0),line.get(1),line.get(2),line.get(3));
+				//This is ugly, but I just want to make sure that they're equal regardless of whitespace or case
+				if(trimLower(s.getSong()).equals(trimLower(tempSong.getSong())) && 
+						trimLower(s.getArtist()).equals(trimLower(tempSong.getArtist()))){
+					continue;
+				}else{
+					writer.write(currentLine + System.getProperty("line.separator"));
+				}
 			}
-		}
-		writer.close(); 
-		reader.close();
-		try{
-			inputFile.delete();
-		} catch(Exception e){
-			System.out.println("Couldn't delete file.");
-		}
-		tempFile.renameTo(inputFile);
+			
+			writer.close(); 
+			reader.close();
+			try{
+				inputFile.delete();
+			} catch(Exception e){
+				System.out.println("Couldn't delete file.");
+			}
+			tempFile.renameTo(inputFile);
 		} catch (Exception e){
 			return;
 		}
