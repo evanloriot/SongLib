@@ -122,7 +122,16 @@ public class EditSongController {
 						LibraryController library = loader.getController();
 						library.start(mainStage, obsList);
 						CSVUtils.deleteSongFromFile(library.obsList.get(index));
+						
+						if(library.obsList.size()-1 == 0){
+						}else if(library.obsList.size()-1 == index) {
+							library.selectSong(obsList.get(index-1));
+						}else if(library.obsList.size()-1 != 0){
+							library.selectSong(obsList.get(index+1));
+						}
+						
 						library.deleteSong(index);
+
 						
 						Scene scene = new Scene(root);
 						mainStage.setScene(scene);
